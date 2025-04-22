@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>64. Ámbar</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #ffd700;
+      font-family: 'Georgia', serif;
+      font-style: italic;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      padding: 2rem;
+    }
+
+    .poema-container {
+      max-width: 700px;
+      width: 100%;
+      white-space: pre-wrap;
+      font-size: 1.4rem;
+      line-height: 1.8;
+    }
+
+    .linea {
+      opacity: 0;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .mensaje-final {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 1.2rem;
+      color: #ffb6c1;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="poema-container" id="poema"></div>
+
+  <script>
+    const poema = [
+      "Pasaste a mi lado y el mundo se volvió cálido,",
+      "como cuando el sol acaricia la piel al final del día.",
+      "",
+      "No era tristeza.",
+      "No era nostalgia.",
+      "Era eso que pasa cuando el corazón reconoce lo que nunca olvidó.",
+      "",
+      "[paz, ternura, reencuentro] – Primavera"
+    ];
+
+    const mensaje = 'Y sí, este poema es para ti. Porque te pienso, te extraño... y te quiero. ❤';
+
+    const container = document.getElementById("poema");
+
+    poema.forEach((linea, i) => {
+      const span = document.createElement("div");
+      span.className = "linea";
+      span.style.animationDelay = `${i * 1.6}s`;
+      span.textContent = linea;
+      container.appendChild(span);
+    });
+
+    setTimeout(() => {
+      const msg = document.createElement("div");
+      msg.className = "mensaje-final";
+      msg.textContent = mensaje;
+      container.appendChild(msg);
+    }, (poema.length + 1) * 1600);
+  </script>
+
+</body>
+</html>
