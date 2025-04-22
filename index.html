@@ -2,11 +2,11 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>64. Ámbar</title>
+  <title>Tú</title>
   <style>
     body {
       background-color: #000;
-      color: #ffd700;
+      color: #fff;
       font-family: 'Georgia', serif;
       font-style: italic;
       display: flex;
@@ -20,20 +20,14 @@
     .poema-container {
       max-width: 700px;
       width: 100%;
-      white-space: pre-wrap;
       font-size: 1.4rem;
       line-height: 1.8;
     }
 
-    .linea {
-      opacity: 0;
-      animation: fadeIn 0.5s ease forwards;
-    }
-
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
+    .poema-texto {
+      white-space: pre-wrap;
+      display: inline;
+      border-right: 2px solid #fff;
     }
 
     .mensaje-final {
@@ -42,44 +36,52 @@
       font-size: 1.2rem;
       color: #ffb6c1;
       opacity: 0;
-      animation: fadeIn 1s ease forwards;
+      transition: opacity 1.5s ease;
+    }
+
+    .visible {
+      opacity: 1;
     }
   </style>
 </head>
 <body>
 
-  <div class="poema-container" id="poema"></div>
+  <div class="poema-container">
+    <div id="typewriter" class="poema-texto"></div>
+    <div id="mensaje" class="mensaje-final">Y sí, este poema es para ti. Porque te pienso, te extraño... y te quiero. ❤</div>
+  </div>
 
   <script>
-    const poema = [
-      "Pasaste a mi lado y el mundo se volvió cálido,",
-      "como cuando el sol acaricia la piel al final del día.",
-      "",
-      "No era tristeza.",
-      "No era nostalgia.",
-      "Era eso que pasa cuando el corazón reconoce lo que nunca olvidó.",
-      "",
-      "[paz, ternura, reencuentro] – Primavera"
-    ];
+    const texto = `Pasaste a mi lado y el mundo se volvió cálido,
+como cuando el sol acaricia la piel al final del día.
 
-    const mensaje = 'Y sí, este poema es para ti. Porque te pienso, te extraño... y te quiero. ❤';
+No era tristeza.
+No era nostalgia.
+Era eso que pasa cuando el corazón reconoce lo que nunca olvidó.
 
-    const container = document.getElementById("poema");
+[paz, ternura, reencuentro] – Primavera`;
 
-    poema.forEach((linea, i) => {
-      const span = document.createElement("div");
-      span.className = "linea";
-      span.style.animationDelay = `${i * 1.6}s`;
-      span.textContent = linea;
-      container.appendChild(span);
-    });
+    const typewriter = document.getElementById('typewriter');
+    const mensaje = document.getElementById('mensaje');
+    let i = 0;
 
-    setTimeout(() => {
-      const msg = document.createElement("div");
-      msg.className = "mensaje-final";
-      msg.textContent = mensaje;
-      container.appendChild(msg);
-    }, (poema.length + 1) * 1600);
+    function escribir() {
+      if (i < texto.length) {
+        const char = texto.charAt(i);
+        if (char === '\n') {
+          typewriter.innerHTML += '<br>';
+        } else {
+          typewriter.innerHTML += char;
+        }
+        i++;
+        setTimeout(escribir, 40);
+      } else {
+        typewriter.style.borderRight = 'none';
+        mensaje.classList.add('visible');
+      }
+    }
+
+    escribir();
   </script>
 
 </body>
